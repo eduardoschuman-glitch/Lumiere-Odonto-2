@@ -44,14 +44,10 @@
       desc: 'Chega de sair da avaliação com um pedido de exame para fazer em outro endereço. Veja como funciona ter tudo dentro da clínica.' },
     { file: 'autoestima', cat: 'bem-estar', catLabel: 'Autoestima', title: 'Autoestima e sorriso',
       desc: 'Colocar a mão na frente da boca na roda de amigos mexe com a vida social e com a saúde. Um olhar sobre o lado emocional de voltar a sorrir.' },
-    { file: 'neurociencia-explica', cat: 'bem-estar', catLabel: 'Bem-estar', title: 'A neurociência do sorriso',
-      desc: 'O que acontece no cérebro quando você sorri e por que esconder o sorriso por vergonha também afeta o seu bem-estar.' },
     { file: 'saude-nutricional', cat: 'bem-estar', catLabel: 'Saúde integral', title: 'Mastigação e saúde nutricional',
       desc: 'Quem não mastiga bem acaba comendo pior. Entenda a relação entre os dentes, a alimentação e a sua saúde como um todo.' },
     { file: 'saude-bucal-preventiva', cat: 'prevencao', catLabel: 'Prevenção', title: 'Saúde bucal preventiva',
       desc: 'Por que não esperar a dor para ir ao dentista. Um diagnóstico precoce resolve pequeno o que poderia virar um problema grande.' },
-    { file: 'escovacao', cat: 'prevencao', catLabel: 'Prevenção', title: 'A ordem certa da higiene bucal',
-      desc: 'Fio dental, escova ou raspador de língua: qual vem primeiro? A sequência muda o resultado. Confira se você faz do jeito certo.' },
     { file: 'pre-natal-odontologico', cat: 'prevencao', catLabel: 'Gestantes', title: 'Pré-natal odontológico',
       desc: 'Gestante pode ir ao dentista? Não só pode como deve. Saiba por que a saúde da gengiva na gravidez também cuida do bebê.' },
     { file: 'alinhadores-invisiveis', cat: 'estetica', catLabel: 'Ortodontia', title: 'Alinhadores invisíveis',
@@ -91,14 +87,20 @@
   observeReveals(document);
   requestAnimationFrame(() => $('.hero .h-display').classList.add('in'));
 
+  /* ---------------- primeira dobra fixa ----------------
+     A capa fica parada e o resto da página sobe por cima dela.
+     Se a capa for mais alta que a tela (celular baixo), ela rola
+     até mostrar o rodapé dela e só então fica parada. */
+  const hero = $('.hero');
+  const pinHero = () => { hero.style.top = Math.min(0, innerHeight - hero.offsetHeight) + 'px'; };
+  pinHero();
+  addEventListener('resize', pinHero);
+
   /* ---------------- parallax ---------------- */
   if (!reduce) {
-    const heroImg = $('.hero-media img');
     const pels = $$('[data-parallax-el]');
     let ticking = false;
     const par = () => {
-      const y = scrollY;
-      if (y < innerHeight) heroImg.style.translate = `0 ${y * .18}px`;
       pels.forEach(el => {
         const r = el.getBoundingClientRect();
         const p = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;

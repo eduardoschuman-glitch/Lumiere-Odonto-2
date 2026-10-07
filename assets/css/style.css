@@ -210,8 +210,15 @@ body.menu-open .header .menu-btn span { background: var(--creme); }
    HERO
    ========================================================== */
 .hero {
-  position: relative; min-height: 100svh; display: flex; flex-direction: column;
+  position: sticky; top: 0; z-index: 0; min-height: 100svh; display: flex; flex-direction: column;
   background: var(--azul-noite); color: var(--creme); overflow: hidden; isolation: isolate;
+}
+
+/* o resto da página sobe por cima da primeira dobra */
+.sheet {
+  position: relative; z-index: 1; background: var(--creme);
+  border-radius: 40px 40px 0 0; overflow: clip;
+  box-shadow: 0 -26px 60px -30px rgba(12, 11, 10, .55);
 }
 .hero-media { position: absolute; inset: 0; z-index: -2; }
 .hero-media picture { display: block; width: 100%; height: 100%; }
@@ -250,6 +257,7 @@ body.menu-open .header .menu-btn span { background: var(--creme); }
 .hero-card-top img { width: 38px; height: 38px; }
 .hero-card-top strong { display: block; font-family: var(--serif); font-size: 18px; color: var(--creme); line-height: 1.2; }
 .hero-card-top small { font-size: 11.5px; letter-spacing: .08em; color: rgba(255, 248, 243, .6); text-transform: uppercase; }
+.hero-card-top em { display: block; font-style: normal; font-size: 12.5px; color: var(--rosa-claro); margin-top: 2px; }
 .hero-card ul { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 7px; }
 .hero-card li { font-size: 13px; color: rgba(255, 248, 243, .82); display: flex; gap: 10px; align-items: center; }
 .hero-card li::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--rosa-claro); flex-shrink: 0; }
@@ -261,6 +269,19 @@ body.menu-open .header .menu-btn span { background: var(--creme); }
 }
 .hero-strip li { display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(255, 248, 243, .75); }
 .hero-strip img { width: 20px; height: 20px; opacity: .9; }
+.hero-strip ul { align-items: center; }
+.hero-strip .g-item { margin-left: auto; }
+.g-badge {
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px 8px 12px; border-radius: 999px;
+  background: rgba(255, 248, 243, .08); border: 1px solid rgba(255, 248, 243, .16);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  font-size: 13.5px; color: var(--creme); transition: background .3s, border-color .3s;
+}
+.g-badge:hover { background: rgba(255, 248, 243, .14); border-color: rgba(255, 248, 243, .3); }
+.g-badge .g-logo { width: 18px; height: 18px; }
+.g-badge .g-stars { color: #fbbc04; letter-spacing: 1px; font-size: 13px; }
+.g-badge b { font-weight: 600; }
+.g-badge .g-src { color: rgba(255, 248, 243, .75); }
 
 /* ==========================================================
    APRESENTAÇÃO (vídeo)
@@ -390,6 +411,20 @@ body.menu-open .header .menu-btn span { background: var(--creme); }
 .why-item p { margin: 0; max-width: 54ch; }
 .why-item .why-ic { grid-column: 2; display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
 .chip { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: var(--rosa-po); color: var(--azul); font-size: 12.5px; font-weight: 500; }
+
+/* ==========================================================
+   DRA. EVELIN
+   ========================================================== */
+.doctor { background: var(--areia); }
+.doctor-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(40px, 7vw, 110px); align-items: center; }
+.doctor-copy p { margin: 18px 0 0; max-width: 58ch; }
+.doctor-copy p.first { font-family: var(--serif); font-size: clamp(20px, 1.8vw, 24px); color: var(--azul); line-height: 1.45; margin-top: 28px; }
+.doctor-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.doctor-chips .chip { background: var(--creme); }
+.doctor-copy .btn { margin-top: 32px; }
+.founder-photo.doctor-photo .ring { inset: -18px auto auto -18px; }
+.founder-photo.doctor-photo .ring img { left: auto; right: -6px; }
+.founder-photo.doctor-photo .sig { right: auto; left: -24px; }
 
 /* ==========================================================
    PROTOCOLO (destaque escuro)
@@ -728,6 +763,20 @@ body.menu-open .header .menu-btn span { background: var(--creme); }
 .vmodal-close svg { width: 18px; height: 18px; }
 
 /* ==========================================================
+   TAMBÉM CUIDAMOS DE
+   ========================================================== */
+.also { padding: clamp(70px, 8vw, 110px) 0; border-bottom: 1px solid var(--linha); }
+.also-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(36px, 6vw, 90px); align-items: center; }
+.also .h-section { font-size: clamp(28px, 3.4vw, 44px); }
+.also-list { list-style: none; margin: 0; padding: 0; }
+.also-list li { display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: center; padding: 18px 0; border-top: 1px solid var(--linha); }
+.also-ic { width: 44px; height: 44px; border-radius: 14px; background: var(--rosa-po); display: grid; place-items: center; }
+.also-ic .bi { width: 24px; height: 24px; color: var(--rosa); }
+.also-list strong { display: block; font-family: var(--serif); font-size: 20px; color: var(--azul); line-height: 1.25; }
+.also-list span { font-size: 14.5px; color: var(--texto-suave); }
+.also-list li.also-cta { display: block; border-bottom: 0; padding-top: 22px; }
+
+/* ==========================================================
    ONDE ESTAMOS
    ========================================================== */
 .where-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 5vw, 70px); align-items: stretch; }
@@ -807,6 +856,16 @@ body.menu-open .header .menu-btn span { background: var(--creme); }
 
 @media (min-width: 1101px) { .hero-media { left: 6%; } }
 
+/* telas de notebook mais baixas: a capa inteira, com o selo do Google, cabe na primeira dobra */
+@media (min-width: 641px) {
+  .hero .h-display { font-size: clamp(40px, min(6.2vw, 8.6vh), 82px); }
+  .hero-body { padding-top: clamp(92px, 12vh, 120px); padding-bottom: 24px; }
+  .hero-sub { margin-top: clamp(16px, 2.4vh, 26px); }
+  .hero-list { margin-top: clamp(16px, 2.6vh, 28px); gap: 6px; }
+  .hero-ctas { margin-top: clamp(20px, 3.6vh, 38px); }
+  .hero-strip ul { padding-top: 16px; padding-bottom: 16px; }
+}
+
 /* ==========================================================
    RESPONSIVO
    ========================================================== */
@@ -822,7 +881,9 @@ body.menu-open .header .menu-btn span { background: var(--creme); }
   .steps-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 900px) {
-  .intro-grid, .why-grid, .feature-box, .viewer, .tech-grid, .visit, .fear-grid, .founder-grid, .where-grid, .faq-grid { grid-template-columns: 1fr; }
+  .intro-grid, .why-grid, .feature-box, .viewer, .tech-grid, .visit, .fear-grid, .founder-grid, .where-grid, .faq-grid, .doctor-grid, .also-grid { grid-template-columns: 1fr; }
+  .doctor-photo { order: -1; max-width: 380px; }
+  .founder-photo.doctor-photo .sig { left: 0; }
   .why-sticky { position: static; }
   .mvv { grid-template-columns: 1fr; }
   .reel { width: min(100%, 360px); }
@@ -852,6 +913,8 @@ body.menu-open .header .menu-btn span { background: var(--creme); }
   .hero-ctas .btn { width: 100%; justify-content: space-between; }
   .hero-strip ul { gap: 12px 22px; padding-top: 18px; padding-bottom: 18px; }
   .hero-strip li { font-size: 12px; }
+  .hero-strip .g-item { margin-left: 0; }
+  .sheet { border-radius: 26px 26px 0 0; box-shadow: 0 -16px 36px -24px rgba(12, 11, 10, .4); }
   .bento { grid-template-columns: 1fr; grid-auto-rows: auto; }
   .b-card, .b-card.big, .bento-right { grid-column: auto; }
   .bento-right { grid-template-columns: 1fr; }

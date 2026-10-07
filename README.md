@@ -1,6 +1,6 @@
 # Instituto Lumière · página institucional
 
-Nova página do Instituto Lumière (Mafra/SC), publicada pelo GitHub Pages.
+Versão 2 da página do Instituto Lumière (Mafra/SC), publicada pelo GitHub Pages. Focada em reabilitação oral (implante e protocolo), com o siso como porta de entrada. A versão original continua no repositório `Odonto-Lumiere`.
 
 - `index.html`: estrutura e textos da página
 - `assets/css/style.css`: design system aplicado (Azul Lumière, Rosa Lumière, Off-White; Cambria/Caladea e Gotham/Montserrat)
