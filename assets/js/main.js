@@ -112,30 +112,57 @@
   }
 
   /* ---------------- vídeo de apresentação ----------------
-     Sem controles de pausa: toca sozinho quando aparece na tela
-     e pausa quando a pessoa rola a página para longe dele. */
+     Fora da tela: pausado e sem som. Na tela: toca com som.
+     O botão liga e desliga o som, e a escolha vale até a pessoa mudar.
+     Os navegadores só liberam som depois do primeiro clique ou toque
+     na página; até lá o vídeo toca sem som e o som entra nesse momento. */
   const iv = $('#introVideo');
   const bar = $('#introBar');
   const snd = $('#introSound');
   if (iv) {
     iv.addEventListener('contextmenu', e => e.preventDefault());
+    let wantSound = true;
+    let visible = false;
+    const paintBtn = () => {
+      snd.setAttribute('aria-pressed', String(!iv.muted));
+      snd.innerHTML = iv.muted
+        ? '<svg><use href="#i-sound-off"/></svg><span>Ativar som</span>'
+        : '<svg><use href="#i-sound-on"/></svg><span>Som ativado</span>';
+    };
+    const start = () => {
+      iv.muted = !wantSound;
+      iv.play().then(paintBtn).catch(() => {
+        // som bloqueado pelo navegador: toca sem som e espera o primeiro clique ou toque
+        iv.muted = true;
+        iv.play().catch(() => {});
+        paintBtn();
+      });
+    };
+    const stop = () => { iv.pause(); iv.muted = true; paintBtn(); };
     const vio = new IntersectionObserver(([e]) => {
-      if (e.intersectionRatio > .45) iv.play().catch(() => {});
-      else iv.pause();
+      visible = e.intersectionRatio > .45;
+      visible ? start() : stop();
     }, { threshold: [0, .45, 1] });
     vio.observe(iv);
+
+    // primeiro clique, toque ou tecla na página libera o som
+    const unlock = e => {
+      if (snd.contains(e.target)) return;
+      ['pointerdown', 'touchend', 'keydown'].forEach(t => removeEventListener(t, unlock, true));
+      if (visible && wantSound && iv.muted) { iv.muted = false; iv.play().catch(() => {}); paintBtn(); }
+    };
+    ['pointerdown', 'touchend', 'keydown'].forEach(t => addEventListener(t, unlock, true));
+
     const tick = () => {
       if (iv.duration) bar.style.transform = `scaleX(${iv.currentTime / iv.duration})`;
       requestAnimationFrame(tick);
     };
     tick();
     snd.addEventListener('click', () => {
-      iv.muted = !iv.muted;
-      snd.setAttribute('aria-pressed', String(!iv.muted));
-      snd.innerHTML = iv.muted
-        ? '<svg><use href="#i-sound-off"/></svg><span>Ativar som</span>'
-        : '<svg><use href="#i-sound-on"/></svg><span>Som ativado</span>';
-      if (!iv.muted) iv.play().catch(() => {});
+      wantSound = iv.muted;
+      iv.muted = !wantSound;
+      iv.play().catch(() => {});
+      paintBtn();
     });
   }
 
