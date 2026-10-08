@@ -17,7 +17,7 @@
       text: 'Dentes comprometidos que vinham sendo remendados por anos. A prótese protocolo trouxe estabilidade e devolveu o prazer de comer sem preocupação.' },
     { id: 'caso-07', w: 1200, h: 600, tag: 'Prótese protocolo', title: 'Luz no sorriso, leveza na rotina.',
       text: 'Dentes escurecidos e com perdas foram substituídos por uma arcada fixa sobre implantes. Um sorriso claro, proporcional e seguro para o dia a dia.' },
-    { id: 'caso-10', w: 1200, h: 900, tag: 'Reabilitação do sorriso', title: 'O mesmo sorriso, mais confiante.',
+    { id: 'caso-10', w: 1200, h: 720, tag: 'Reabilitação do sorriso', title: 'O mesmo sorriso, mais confiante.',
       text: 'Com cor, forma e alinhamento planejados para o rosto da paciente, a reabilitação deixou o sorriso mais harmônico sem perder a naturalidade.' },
     { id: 'caso-02', w: 1200, h: 545, tag: 'Facetas e coroas', title: 'Proporção e harmonia.',
       text: 'Espaços, diferenças de tamanho e desgastes corrigidos com facetas e coroas. Detalhe por detalhe, para um resultado equilibrado e natural.' },
@@ -221,12 +221,12 @@
     b.className = 'thumb';
     b.setAttribute('role', 'tab');
     b.setAttribute('aria-label', `Caso ${i + 1}: ${c.tag}`);
-    b.innerHTML = `<img src="assets/img/${c.id}-depois.webp" alt="" loading="lazy"><span>${pad(i + 1)}</span>`;
+    b.innerHTML = `<img src="assets/img/${c.id}-depois.webp?v=2" alt="" loading="lazy"><span>${pad(i + 1)}</span>`;
     b.addEventListener('click', () => showCase(i));
     thumbs.appendChild(b);
   });
   // pré-carrega as imagens dos casos depois que a página termina de carregar
-  addEventListener('load', () => setTimeout(() => CASES.forEach(c => { new Image().src = `assets/img/${c.id}-antes.webp`; new Image().src = `assets/img/${c.id}-depois.webp`; }), 1500));
+  addEventListener('load', () => setTimeout(() => CASES.forEach(c => { new Image().src = `assets/img/${c.id}-antes.webp?v=2`; new Image().src = `assets/img/${c.id}-depois.webp?v=2`; }), 1500));
 
   function showCase(i, first) {
     current = (i + CASES.length) % CASES.length;
@@ -235,8 +235,8 @@
     const apply = () => {
       const a = mainBA.querySelector('.ba-after');
       const b = mainBA.querySelector('.ba-before img');
-      a.src = `assets/img/${c.id}-depois.webp`; a.width = c.w; a.height = c.h;
-      b.src = `assets/img/${c.id}-antes.webp`; b.width = c.w; b.height = c.h;
+      a.src = `assets/img/${c.id}-depois.webp?v=2`; a.width = c.w; a.height = c.h;
+      b.src = `assets/img/${c.id}-antes.webp?v=2`; b.width = c.w; b.height = c.h;
       mainBA.style.aspectRatio = `${c.w} / ${c.h}`;
       $('#vTag').textContent = c.tag;
       $('#vTitle').textContent = c.title;
